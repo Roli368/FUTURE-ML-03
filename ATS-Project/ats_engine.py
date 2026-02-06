@@ -72,7 +72,7 @@ def rank_uploaded_resumes(uploaded_files, jd_text):
     # Extract expected skills from JD (using the same vocab)
     jd_skills = set(extract_skills(jd_clean, SKILL_VOCAB))
     
-    # 2. Process Resumes
+    # 2. Process Resume
     for pdf_path in uploaded_files:
         filename = os.path.basename(pdf_path)
         

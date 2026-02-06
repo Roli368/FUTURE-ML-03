@@ -5,7 +5,7 @@ from ats_engine import rank_uploaded_resumes
 
 DATA_FILE = "data/ACCOUNTANT/10554236.pdf" 
 if not os.path.exists(DATA_FILE):
-    # Search for any PDF
+    # Search for any pdf
     for root, dirs, files in os.walk("data"):
         for file in files:
             if file.endswith(".pdf"):

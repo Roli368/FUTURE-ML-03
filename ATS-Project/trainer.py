@@ -16,7 +16,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 # CONFIG
-# -------------------------------------------------
+# ------------------------------------------------
 DATA_DIR = "data"
 ARTIFACTS_DIR = "artifacts"
 NLP_MODEL = "en_core_web_sm"

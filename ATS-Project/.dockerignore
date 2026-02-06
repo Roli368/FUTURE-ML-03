@@ -10,6 +10,5 @@ venv
 .gitignore
 uploads/*
 artifacts/skill_vocab.json
-# Keep the vocab if it's pre-generated, but usually we ignore generated data if we generate it in build. 
-# However, for this app, we copy everything. Just ignoring typical junk.
+
 .vscode

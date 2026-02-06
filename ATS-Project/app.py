@@ -15,7 +15,7 @@ from ats_engine import rank_uploaded_resumes
 
 app = Flask(__name__)
 
-# ---------------- CONFIG ----------------
+# ---------------- CONFIG ---------------
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {"pdf"}
 
