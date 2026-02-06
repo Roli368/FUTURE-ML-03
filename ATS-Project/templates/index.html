@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Applicant Tracking System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="spinner"></div>
+            <p>Analyzing Resumes with AI...</p>
+        </div>
+
+        <a href="/" style="text-decoration: none;">
+            <h1 class="gradient-title">Resume Screening System <br> <span
+                    style="font-size: 1.2rem; font-weight: 500; color: #64748b;">AI-Powered Ranking & Analysis</span>
+            </h1>
+        </a>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <label for="role">
+                <img src="https://cdn-icons-png.flaticon.com/512/3207/3207758.png" class="label-icon" alt="Job">
+                Select Job Role
+            </label>
+            <div class="input-group">
+                <select name="role" id="role" required>
+                    <option value="ACCOUNTANT">ACCOUNTANT</option>
+                    <option value="ADVOCATE">ADVOCATE</option>
+                    <option value="AGRICULTURE">AGRICULTURE</option>
+                    <option value="APPAREL">APPAREL</option>
+                    <option value="ARTS">ARTS</option>
+                    <option value="AUTOMOBILE">AUTOMOBILE</option>
+                    <option value="AVIATION">AVIATION</option>
+                    <option value="BANKING">BANKING</option>
+                    <option value="BPO">BPO</option>
+                    <option value="BUSINESS-DEVELOPMENT">BUSINESS-DEVELOPMENT</option>
+                    <option value="CHEF">CHEF</option>
+                    <option value="CONSTRUCTION">CONSTRUCTION</option>
+                    <option value="CONSULTANT">CONSULTANT</option>
+                    <option value="DESIGNER">DESIGNER</option>
+                    <option value="DIGITAL-MEDIA">DIGITAL-MEDIA</option>
+                    <option value="ENGINEERING">ENGINEERING</option>
+                    <option value="FINANCE">FINANCE</option>
+                    <option value="FITNESS">FITNESS</option>
+                    <option value="HEALTHCARE">HEALTHCARE</option>
+                    <option value="HR">HR</option>
+                    <option value="INFORMATION-TECHNOLOGY">INFORMATION-TECHNOLOGY</option>
+                    <option value="PUBLIC-RELATIONS">PUBLIC-RELATIONS</option>
+                    <option value="SALES">SALES</option>
+                    <option value="TEACHER">TEACHER</option>
+                </select>
+            </div>
+            <br>
+
+            <label for="jd">
+                <img src="https://cdn-icons-png.flaticon.com/512/942/942799.png" class="label-icon" alt="JD">
+                Job Description <span
+                    style="font-size: 0.8rem; font-weight: 400; color: #64748b; margin-left: 5px;">(You can edit this
+                    text)</span>
+            </label>
+            <textarea name="jd" id="jd" placeholder="Paste the job description here..." required></textarea>
+            <br><br>
+
+            <label>
+                <img src="https://cdn-icons-png.flaticon.com/512/2889/2889218.png" class="label-icon" alt="Upload">
+                Upload Resumes
+            </label>
+            <div class="file-upload-wrapper">
+                <img src="https://cdn-icons-png.flaticon.com/512/4131/4131845.png" class="upload-main-icon" alt="Cloud">
+                <input type="file" name="resumes" id="resumeUpload" multiple accept=".pdf" required>
+                <p id="fileCount">
+                    Drag & Drop or <span>Browse</span> to Upload
+                </p>
+            </div>
+
+            <button type="submit" onclick="showLoading()">🚀 Analyze & Rank Resumes</button>
+        </form>
+
+        {% if results %}
+        <div class="results-header">Scanning Results</div>
+
+        {% for r in results %}
+        <div class="card">
+            <h3>
+                <span>{{ loop.index }}. {{ r.resume }}</span>
+                <div>
+                    <a href="/uploads/{{ r.resume }}" target="_blank" class="view-btn">View PDF</a>
+                    <span class="score-badge">{{ r.score }}% Match</span>
+                </div>
+            </h3>
+
+            <div class="section-label">Matched Skills</div>
+            <div class="tags">
+                {% if r.matched %}
+                {% for skill in r.matched %}
+                <span class="tag matched">{{ skill }}</span>
+                {% endfor %}
+                {% else %}
+                <span style="color: #64748b; font-size: 0.9rem;">No direct skill matches found.</span>
+                {% endif %}
+            </div>
+
+            <div class="section-label">Missing / Recommended Skills</div>
+            <div class="tags">
+                {% if r.missing %}
+                {% for skill in r.missing %}
+                <span class="tag missing">{{ skill }}</span>
+                {% endfor %}
+                {% else %}
+                <span style="color: #64748b; font-size: 0.9rem;">All required skills present!</span>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <div style="text-align: center; margin-top: 30px; margin-bottom: 10px;">
+            <a href="/" style="
+                background: #f1f5f9; 
+                color: #475569; 
+                padding: 12px 24px; 
+                border-radius: 999px; 
+                text-decoration: none; 
+                font-weight: 600;
+                border: 1px solid #cbd5e1;
+                transition: all 0.2s;
+            ">🔄 Start New Scan / Clear Results</a>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- Load Templates -->
+    <script src="/static/jd_templates.js"></script>
+
+    <script>
+        // DOM Elements
+        const roleSelect = document.getElementById("role");
+        const jdTextarea = document.getElementById("jd");
+        const fileInput = document.getElementById("resumeUpload");
+        const fileCountSpan = document.getElementById("fileCount");
+
+        // 1. Auto-Fill Logic
+        roleSelect.addEventListener("change", function () {
+            const selectedRole = this.value;
+
+
+            if (JD_TEMPLATES[selectedRole]) {
+                // UI Feedback
+                jdTextarea.style.transition = "background-color 0.2s";
+                jdTextarea.style.backgroundColor = "#eff6ff";
+                jdTextarea.style.borderColor = "#2563eb";
+
+                jdTextarea.value = JD_TEMPLATES[selectedRole];
+
+                setTimeout(() => {
+                    jdTextarea.style.backgroundColor = "#f8fafc";
+                    jdTextarea.style.borderColor = "#e2e8f0";
+                }, 400);
+            }
+        });
+
+        //  File Count Logic
+        fileInput.addEventListener("change", function () {
+            const count = this.files.length;
+            const text = count === 1
+                ? "1 resume selected"
+                : count + " resumes selected";
+            fileCountSpan.innerText = text;
+            fileCountSpan.style.color = "#2563eb";
+            fileCountSpan.style.fontWeight = "600";
+        });
+
+
+        if (jdTextarea.value.trim() === "") {
+            if (JD_TEMPLATES[roleSelect.value]) {
+                jdTextarea.value = JD_TEMPLATES[roleSelect.value];
+            }
+        }
+        //  Loading Logic
+        function showLoading() {
+
+            if (roleSelect.value && jdTextarea.value && fileInput.files.length > 0) {
+                document.getElementById('loadingOverlay').style.display = 'flex';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

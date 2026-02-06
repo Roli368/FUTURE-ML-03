@@ -1,0 +1,8 @@
+flask
+spacy
+pdfplumber
+scikit-learn
+sentence-transformers
+torch
+numpy
+gunicorn
