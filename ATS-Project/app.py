@@ -74,4 +74,5 @@ def uploaded_file(filename):
 
 # ---------------- RUN SERVER ----------------
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=True)
+    debug_mode = os.environ.get("DEBUG", "False").lower() == "true"
+    app.run(debug=debug_mode, use_reloader=debug_mode)

@@ -23,11 +23,14 @@ RUN python -m spacy download en_core_web_sm
 # Copy project
 COPY . .
 
-# Create uploads directory
+# Train the Skill Extractor (Generate Artifacts)
+RUN python trainer.py
+
+# Create uploads directory (if not handled by trainer.py or for runtime safety)
 RUN mkdir -p uploads
 
 # Expose port
 EXPOSE 5000
 
-# Command to run the application using Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+# Command to run the application using Gunicorn with dynamic port
+CMD sh -c "gunicorn --bind 0.0.0.0:${PORT:-5000} app:app"
