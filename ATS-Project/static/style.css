@@ -402,3 +402,102 @@ button:active {
         opacity: 0.6;
     }
 }
+
+/* ------------------------------------------------ */
+/* RESPONSIVE DESIGN (Mobile & Tablet)             */
+/* ------------------------------------------------ */
+
+@media (max-width: 768px) {
+    body {
+        padding: 20px 10px;
+    }
+
+    .container {
+        padding: 25px 20px;
+        width: 90%;
+        max-width: 100%;
+        border-radius: 16px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+
+    .gradient-title span {
+        font-size: 1rem !important;
+        display: block;
+        margin-top: 5px;
+    }
+
+    /* Form Elements */
+    select,
+    textarea,
+    button {
+        font-size: 0.95rem;
+        padding: 14px;
+    }
+
+    label {
+        font-size: 0.85rem;
+    }
+
+    /* File Upload Area */
+    .file-upload-wrapper {
+        padding: 30px 15px;
+        border-width: 2px;
+    }
+
+    .upload-main-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .file-upload-wrapper p {
+        font-size: 0.95rem;
+    }
+
+    /* Results Card */
+    .card {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .card h3 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .card h3>span:first-child {
+        font-size: 1rem;
+        white-space: normal;
+        overflow: visible;
+    }
+
+    .card h3>div {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 5px;
+    }
+
+    .view-btn {
+        flex: 1;
+        text-align: center;
+    }
+
+    .score-badge {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        padding: 20px 15px;
+        width: 95%;
+    }
+}
