@@ -7,7 +7,11 @@ Unlike traditional keyword-based ATS, this system understands **semantic meaning
 
 ## 🎥 Demo (GIF)
 
-![ATS Demo](static/demo.gif)
+
+![alt text](image.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
+![alt text](image-4.png)
 
 ---
 
