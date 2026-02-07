@@ -2,6 +2,15 @@
 
 A powerful, intelligent Applicant Tracking System (ATS) that utilizes Natural Language Processing (NLP) to rank resumes against job descriptions. This system goes beyond simple keyword matching by understanding semantic meaning and filtering out generic "noise" to find the best candidates.
 
+## 🎥 Video Demo
+
+<video src="static/demo.mp4" controls="controls" style="max-width: 100%;">
+</video>
+
+*Watch the full walkthrough here: [Link to YouTube / Loom](https://youtube.com)*
+
+
+
 ##  Features
 
 *   ** AI-Powered Ranking**: Uses `Sentence-BERT` for semantic understanding and `TF-IDF` for keyword precision.
@@ -58,7 +67,7 @@ Deployed this application using Docker  Render.
 
 1.  **Select a Job Role**: Choose from the dropdown (e.g., ENGINEERING, SALES). The Job Description will auto-fill.
 2.  **Upload Resumes**: Click "Upload Resumes" or drag & drop PDF files.
-3.  **Analyze**: Click the **🚀 Analyze & Rank** button.
+3.  **Analyze**: Click the ** Analyze & Rank** button.
 4.  **View Results**:
     *   See candidates ranked by score (0-100%).
     *   Green tags = Matched Skills.
@@ -85,3 +94,5 @@ ATS-Project/
 ```
 
 *Built for the Future ML Internship.*
+
+

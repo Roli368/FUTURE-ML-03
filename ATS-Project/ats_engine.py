@@ -14,6 +14,7 @@ SKILL_FILE = os.path.join(ARTIFACTS_DIR, "skill_vocab.json")
 # Load NLP for preprocessing 
 nlp = None
 MODEL = None
+SKILL_VOCAB = []
 
 def load_models():
     """Lazy load models only when needed to prevent startup timeout."""
@@ -30,6 +31,14 @@ def load_models():
     if MODEL is None:
         print("⏳ Loading SBERT Model...")
         MODEL = SentenceTransformer('all-MiniLM-L6-v2')
+
+    global SKILL_VOCAB
+    if not SKILL_VOCAB:
+        if os.path.exists(SKILL_FILE):
+            with open(SKILL_FILE, "r") as f:
+                SKILL_VOCAB = set(json.load(f))
+        else:
+            print("⚠ WARNING: Skill vocabulary not found. Run trainer.py first.")
 
 # -------------------------------------------------
 # HELPERS
