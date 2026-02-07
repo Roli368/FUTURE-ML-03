@@ -1,99 +1,52 @@
-# AI-Powered Resume Screening System
+# AI-Powered Resume Screening System (ATS)
 
-A powerful, intelligent Applicant Tracking System (ATS) that utilizes Natural Language Processing (NLP) to rank resumes against job descriptions. This system goes beyond simple keyword matching by understanding semantic meaning and filtering out generic "noise" to find the best candidates.
+An intelligent **Applicant Tracking System (ATS)** that leverages **Natural Language Processing (NLP)** to rank resumes against job descriptions.  
+Unlike traditional keyword-based ATS, this system understands **semantic meaning** and filters out generic “noise” to identify the **most relevant candidates**.
 
+---
 
 ## 🎥 Demo (GIF)
 
 ![ATS Demo](static/demo.gif)
 
+---
 
+## 🚀 Features
 
+* **AI-Powered Ranking**  
+  Combines **Sentence-BERT** for semantic similarity and **TF-IDF** for keyword precision to generate accurate resume–JD match scores.
 
+* **Smart Skill Extraction**  
+  Automatically extracts technical skills while ignoring generic filler terms (e.g., *“team player”*, *“hardworking”*) using a custom-trained noise blacklist.
 
+* **Instant Feedback for Recruiters**  
+  Visual badges highlight **Matched Skills** and **Missing Skills**, enabling faster and clearer decision-making.
 
-##  Features
+* **Auto-Fill Job Descriptions**  
+  Select a predefined job role (e.g., *Python Developer*) and the system auto-fills a professional Job Description.
 
-*   ** AI-Powered Ranking**: Uses `Sentence-BERT` for semantic understanding and `TF-IDF` for keyword precision.
-*   ** Smart Skill Extraction**: Automatically identifies technical skills while ignoring generic filler words (e.g., "team player", "hardworking") using a custom-trained blacklist.
-*   ** Instant Feedback**: visual badges for "Matched" and "Missing" skills to help recruiters make quick decisions.
+* **Secure PDF Resume Analysis**  
+  Parses and analyzes uploaded PDF resumes safely and efficiently.
 
-*   ** Auto-Fill JD**: Select a job role (e.g., "Python Developer") and the system pre-fills a professional Job Description for you.
-*   ** PDF Analysis**: Securely parses and analyzes PDF resumes.
+---
 
-## Technology Stack
+## 🧠 Technology Stack
 
-*   **Backend**: Python, Flask
-*   **ML/NLP**: 
-    *   `spaCy` (Text Processing)
-    *   `sentence-transformers` (Semantic Search)
-    *   `scikit-learn` (Vectorization)
-*   **Frontend**: HTML5, CSS3 (Vanilla), JavaScript
+* **Backend**: Python, Flask (REST-based architecture)
+* **ML / NLP**:
+  * `spaCy` – Text processing & linguistic analysis  
+  * `sentence-transformers` – Semantic similarity (SBERT)  
+  * `scikit-learn` – TF-IDF vectorization & scoring
+* **Frontend**: HTML5, CSS3 (Vanilla), JavaScript
+* **Deployment**: Docker, Render
 
-##  Installation & Setup
+---
 
-1.  **Clone the Repository**
-    ```bash
-    git clone <repository-url>
-    cd ATS-Project
-    ```
+## ⚙️ Installation & Setup
 
-2.  **Install Dependencies**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3.  **Download NLP Models**
-    ```bash
-    python -m spacy download en_core_web_sm
-    ```
-
-4.  **Train the Skill Extractor (First Run Only)**
-    This step scans your `data/` folder (resume dataset) to build a "Knowledge Base" of valid skills and ignore common noise.
-    ```bash
-    python trainer.py
-    ```
-    *Output: Generates `artifacts/skill_vocab.json` and `artifacts/tfidf_model.pkl`.*
-
-5.  **Run the Application**
-    ```bash
-    python app.py
-    ```
-
-
-## 🌍 Deployment
-
-Deployed this application using Docker  Render.
-## 📖 Usage Guide
-
-1.  **Select a Job Role**: Choose from the dropdown (e.g., ENGINEERING, SALES). The Job Description will auto-fill.
-2.  **Upload Resumes**: Click "Upload Resumes" or drag & drop PDF files.
-3.  **Analyze**: Click the ** Analyze & Rank** button.
-4.  **View Results**:
-    *   See candidates ranked by score (0-100%).
-    *   Green tags = Matched Skills.
-    *   Red tags = Missing Skills.
-    *   Click "View PDF" to inspect the original document.
-
-## 📂 Project Structure
-
-
+### 1️⃣ Clone the Repository
 ```bash
-ATS-Project/
-├── app.py              # Main Flask Application
-├── ats_engine.py       # Core Logic (Ranking, Parsing, Matching)
-├── trainer.py          # Offline Training Script (Noise Reduction)
-├── requirements.txt    # Project Dependencies
-├── artifacts/          # Generated ML Models & Vocab
-│   ├── skill_vocab.json
-│   └── tfidf_model.pkl
-├── static/
-│   ├── style.css       # Premium Styling
-│   └── jd_templates.js # Pre-defined Job Descriptions
-└── templates/
-    └── index.html      # Main Dashboard
-```
-
-*Built for the Future ML Internship.*
+git clone <repository-url>
+cd <repo-name>
 
 
