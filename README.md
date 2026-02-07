@@ -2,12 +2,13 @@
 
 A powerful, intelligent Applicant Tracking System (ATS) that utilizes Natural Language Processing (NLP) to rank resumes against job descriptions. This system goes beyond simple keyword matching by understanding semantic meaning and filtering out generic "noise" to find the best candidates.
 
-## 🎥 Video Demo
 
-<video src="static/demo.mp4" controls="controls" style="max-width: 100%;">
-</video>
+## 🎥 Demo (GIF)
 
-*Watch the full walkthrough here: [Link to YouTube / Loom](https://youtube.com)*
+![ATS Demo](static/demo.gif)
+
+
+
 
 
 
