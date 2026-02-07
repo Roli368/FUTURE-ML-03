@@ -12,19 +12,24 @@ ARTIFACTS_DIR = "artifacts"
 SKILL_FILE = os.path.join(ARTIFACTS_DIR, "skill_vocab.json")
 
 # Load NLP for preprocessing 
-nlp = spacy.load("en_core_web_sm", disable=["ner", "parser", "tagger"])
+nlp = None
+MODEL = None
 
-# Load SBERT Model (Lazy loading recommended, but here we load globally)
-print("⏳ Loading SBERT Model...")
-MODEL = SentenceTransformer('all-MiniLM-L6-v2')
-
-# Load Skill Cache
-SKILL_VOCAB = []
-if os.path.exists(SKILL_FILE):
-    with open(SKILL_FILE, "r") as f:
-        SKILL_VOCAB = set(json.load(f))
-else:
-    print("⚠ WARNING: Skill vocabulary not found. Run trainer.py first.")
+def load_models():
+    """Lazy load models only when needed to prevent startup timeout."""
+    global nlp, MODEL
+    
+    if nlp is None:
+        print("⏳ Loading Spacy Model...")
+        # Enable tagger/attribute_ruler for lemmatizer to work correctly without warnings
+        try:
+             nlp = spacy.load("en_core_web_sm", disable=["ner", "parser"])
+        except Exception as e:
+            print(f"Error loading Spacy: {e}")
+            
+    if MODEL is None:
+        print("⏳ Loading SBERT Model...")
+        MODEL = SentenceTransformer('all-MiniLM-L6-v2')
 
 # -------------------------------------------------
 # HELPERS
@@ -42,6 +47,9 @@ def extract_text_from_pdf(pdf_path):
 
 def preprocess_text(text):
     """Normalize text for consistent matching."""
+    # Ensure models are loaded
+    if nlp is None: load_models()
+        
     doc = nlp(text.lower())
     tokens = [t.lemma_ for t in doc if t.is_alpha and not t.is_stop]
     return " ".join(tokens)
@@ -66,6 +74,10 @@ def rank_uploaded_resumes(uploaded_files, jd_text):
     results = []
     
     # 1. Preprocess JD
+    
+    # Ensure models are loaded before using them
+    if MODEL is None: load_models()
+        
     jd_clean = preprocess_text(jd_text)
     jd_emb = MODEL.encode(jd_clean, convert_to_tensor=True)
     
